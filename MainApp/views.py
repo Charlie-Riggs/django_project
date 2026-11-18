@@ -7,7 +7,7 @@ from django.http import Http404
 
 # Create your views here.      ##final exam question: get and post are the two types of requests for data
 def index(request):
-    return render(request, 'MainApp/index.html')
+    return render(request, 'mainapp/index.html')
 
 @login_required
 def topics(request):
@@ -17,7 +17,7 @@ def topics(request):
                                                 #key of dictionary refers to the variable name used in template
                                                 #value of this dictionary is what we use in the view
 
-    return render(request, 'MainApp/topics.html', context)
+    return render(request, 'mainapp/topics.html', context)
 
 @login_required
 def topic(request, topic_id):
@@ -32,7 +32,7 @@ def topic(request, topic_id):
     entries = Entry.objects.filter(topic=topic).order_by('-date_added')    #decending order for order by is putting a negative sign in front of attribute
     context = {'topic':topic, 'entries':entries}
 
-    return render(request, 'MainApp/topic.html', context)
+    return render(request, 'mainapp/topic.html', context)
 
 @login_required
 def new_topic(request):
@@ -47,7 +47,7 @@ def new_topic(request):
             return redirect('MainApp:topics')
         
     context = {'form':form}
-    return render(request, 'MainApp/new_topic.html', context)
+    return render(request, 'mainapp/new_topic.html', context)
 
 @login_required
 def new_entry(request, topic_id):
@@ -72,7 +72,7 @@ def new_entry(request, topic_id):
             return redirect('MainApp:topic', topic_id=topic_id)    #need to save as a variable so the page has a topic ID
         
     context = {'form':form, 'topic':topic}
-    return render(request, 'MainApp/new_entry.html', context)
+    return render(request, 'mainapp/new_entry.html', context)
 
 @login_required
 def edit_entry(request, entry_id):       #only the things being passed from the url need to be consistent in naming
@@ -95,5 +95,5 @@ def edit_entry(request, entry_id):       #only the things being passed from the 
             return redirect('MainApp:topic', topic_id=topic.id)
         
     context = {'entry':entry, 'topic':topic, 'form':form}
-    return render(request, 'MainApp/edit_entry.html', context)
+    return render(request, 'mainapp/edit_entry.html', context)
 
